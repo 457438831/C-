@@ -1,7 +1,7 @@
 
 
 
-//            初识C语言
+//              初识C语言
 
 //	引头文件 <name.h>引用库函数    "name.h"引用自定义函数被
 #include <stdio.h>
