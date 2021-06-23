@@ -2,7 +2,7 @@
 
 
 
-//			阶乘函数实现 （递归）
+//   阶乘函数实现 （递归）
 int jiecheng(int a) {
 	if (a <= 1) {
 		return 1;
