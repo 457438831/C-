@@ -1,8 +1,6 @@
 #include <stdio.h>
 
 
-
-//   ½×³Ëº¯ÊıÊµÏÖ £¨µİ¹é£©
 int jiecheng(int a) {
 	if (a <= 1) {
 		return 1;
