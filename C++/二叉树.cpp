@@ -10,6 +10,7 @@
 * 4,假设二叉树只有一个根节点
 * 5,假设是一个空二叉树
 * 6,假设找不到值
+* 7,如果删除第一个节点树 则地址变为随机值  传二级指针解决
 *********************************************/
 #include <iostream>
 using namespace std;
@@ -153,6 +154,48 @@ bool deleteNode(Node* p_tree,int number)
 		return deleteNode(p_tree->right,number);
 	}
 }
+
+//删除树中所有节点
+void delete_Tree_Node(Node** pp_tree)
+{
+	//如果左边节点不为空则从左边开始删
+	if ((*pp_tree)->left != NULL)
+	{
+		delete_Tree_Node(&((*pp_tree)->left));
+	}
+	//左边删完以后 右边不为空则删除右边
+	if ((*pp_tree)->right != NULL)
+	{
+		delete_Tree_Node(&((*pp_tree)->right));
+	}
+	//两边都为空则删除自己 并将指针重置为零
+	delete *pp_tree;
+	*pp_tree = NULL;
+}
+
+//删除树    传二级指针是为了能够方便的修改指针地址
+bool deleteTree(Node** pp_tree,int node_val)
+{
+	
+	if (*pp_tree == NULL)
+		return 0;
+	if ((*pp_tree)->value == node_val)
+	{
+		delete_Tree_Node(pp_tree);
+		return 1;
+	}
+	else if((*pp_tree)->value < node_val)
+	{//如果大于则去右边查找
+		
+		return deleteTree(&((*pp_tree)->right),node_val);
+	}
+	else
+	{//否则都去左边查找
+		return deleteTree(&((*pp_tree)->left),node_val);
+	}
+
+}
+
 int main()
 {	
 	//增加
@@ -177,11 +220,16 @@ int main()
 	if(editNode(p_tree,2,5))
 		cout<<"修改成功"<<endl;//修改节点值
 
-	//删除
+	//删除节点
 	if (deleteNode(p_tree, 4))
 		cout << "删除成功" << endl;
 	else
 		cout << "删除失败" << endl;
 
+	//删除树
+	if (deleteTree(&p_tree, 3))
+		cout << "删除成功" << endl;
+	else
+		cout << "删除失败" << endl;
 	return 0;
 }
